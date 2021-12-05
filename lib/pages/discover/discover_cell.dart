@@ -29,17 +29,20 @@ class _DiscoverCellState extends State<DiscoverCell> {
             title: widget.title,
           );
         }));
+        setState(() {
+          _currentColor = Colors.white;
+        });
       },
       onTapDown: (details) {
         setState(() {
           _currentColor = Colors.grey;
         });
       },
-      onTapCancel: () {
-        setState(() {
-          _currentColor = Colors.white;
-        });
-      },
+      // onTapCancel: () {
+      //   setState(() {
+      //     _currentColor = Colors.white;
+      //   });
+      // },
       child: Container(
         height: 54,
         color: _currentColor,
@@ -49,20 +52,27 @@ class _DiscoverCellState extends State<DiscoverCell> {
           children: [
             // left
             Container(
-                child: Row(
-              children: [
-                Image(
-                  image: AssetImage(widget.iconName),
-                  width: 20,
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                Text(widget.title),
-              ],
-            )),
+              color: Colors.yellow,
+              child: Row(
+                children: [
+                  // Image.asset(
+                  //   widget.iconName,
+                  //   width: 20,
+                  // ),
+                  Image(
+                    image: AssetImage(widget.iconName),
+                    width: 20,
+                  ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Text(widget.title),
+                ],
+              ),
+            ),
             // right
             Container(
+              color: Colors.blue,
               child: Row(
                 children: [
                   Text(widget.subTitle != null ? widget.subTitle! : ''),

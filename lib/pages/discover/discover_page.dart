@@ -10,9 +10,10 @@ class DiscoverPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kWeChatThemeColor,
+        // 以下三个是专门为了Android使用
         title: Text("发现"),
         centerTitle: true,
-        elevation: 0.0,
+        elevation: 0.0, // 底部边栏 Android专用
       ),
       body: Container(
         color: kWeChatThemeColor,
