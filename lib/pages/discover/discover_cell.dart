@@ -52,7 +52,7 @@ class _DiscoverCellState extends State<DiscoverCell> {
           children: [
             // left
             Container(
-              color: Colors.yellow,
+              // color: Colors.yellow,
               child: Row(
                 children: [
                   // Image.asset(
@@ -72,7 +72,7 @@ class _DiscoverCellState extends State<DiscoverCell> {
             ),
             // right
             Container(
-              color: Colors.blue,
+              // color: Colors.blue,
               child: Row(
                 children: [
                   Text(widget.subTitle != null ? widget.subTitle! : ''),
