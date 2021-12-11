@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wechatdemo/pages/discover/discover_child_page.dart';
+import 'package:wechatdemo/pages/friends/friends_data.dart';
+
+import '../const.dart';
 
 class FriendPage extends StatefulWidget {
   const FriendPage({Key? key}) : super(key: key);
@@ -15,22 +19,42 @@ class _FriendPageState extends State<FriendPage> {
     Friends(imageUrl: 'images/公众号.png', name: '公众号'),
   ];
 
-  // Widget _itemForRow(BuildContext context, int index) {
-  //   if (index < _headerData.length) {
-  //     return _FriendCell(
-  //         imageAssets: _headerData[index].imageUrl,
-  //         name: _headerData[index].name);
-  //   }
-  // }
+  Widget _itemForRow(BuildContext context, int index) {
+    if (index < _headerData.length) {
+      return _FriendCell(
+          imageAssets: _headerData[index].imageUrl,
+          name: _headerData[index].name);
+    }
+    return _FriendCell(
+        imageUrl: datas[index - 4].imageUrl, name: datas[index - 4].name);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          '通讯录',
-          style: TextStyle(fontSize: 18, color: Colors.red),
-        ),
+        backgroundColor: kWeChatThemeColor,
+        title: Text('通讯录'),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return DiscoverChildPage(title: '添加朋友');
+              }));
+            },
+            child: Container(
+              margin: EdgeInsets.all(5),
+              child: Image(
+                image: AssetImage('images/icon_friends_add.png'),
+                width: 25,
+              ),
+            ),
+          )
+        ],
+      ),
+      body: ListView.builder(
+        itemCount: datas.length + _headerData.length,
+        itemBuilder: _itemForRow,
       ),
     );
   }
@@ -43,26 +67,52 @@ class Friends {
 }
 
 class _FriendCell extends StatelessWidget {
-  final String imageUrl;
-  final String name;
-  final String groupTitle;
-  final String imageAssets;
+  final String? imageUrl;
+  final String? name;
+  final String? groupTitle;
+  final String? imageAssets;
   const _FriendCell(
-      {Key? key,
-      required this.imageUrl,
-      required this.name,
-      required this.groupTitle,
-      required this.imageAssets})
+      {Key? key, this.imageUrl, this.name, this.groupTitle, this.imageAssets})
       : super(key: key);
+
+  ImageProvider imageProvider() {
+    if (imageUrl != null) {
+      return NetworkImage(imageUrl ?? '');
+    }
+    return AssetImage(imageAssets ?? '');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.yellow,
-      child: Row(
+      color: Colors.white,
+      child: Column(
         children: [
-          Container(),
-          Container(),
+          Row(
+            children: [
+              Container(
+                margin: EdgeInsets.all(10),
+                width: 34,
+                height: 34,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6.0),
+                  image: DecorationImage(
+                    image: imageProvider(),
+                  ),
+                ),
+              ),
+              Container(
+                child: Text(
+                  name ?? '',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
+          ),
+          Container(
+            height: 0.5,
+            color: kWeChatThemeColor,
+          )
         ],
       ),
     );

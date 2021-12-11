@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wechatdemo/pages/chat_page.dart';
 import 'package:wechatdemo/pages/discover/discover_page.dart';
-import 'package:wechatdemo/pages/friends_page.dart';
+import 'package:wechatdemo/pages/friends/friends_page.dart';
 import 'package:wechatdemo/pages/mine_page.dart';
 
 class RootPage extends StatefulWidget {
@@ -11,7 +11,7 @@ class RootPage extends StatefulWidget {
 
 class _RootPageState extends State<RootPage> {
   int _currentIndex = 1;
-  List<Widget> _pages = [ChatPage(), FriendsPage(), DiscoverPage(), MinePage()];
+  List<Widget> _pages = [ChatPage(), FriendPage(), DiscoverPage(), MinePage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
