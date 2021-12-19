@@ -26,7 +26,10 @@ class _FriendPageState extends State<FriendPage> {
           name: _headerData[index].name);
     }
     return _FriendCell(
-        imageUrl: datas[index - 4].imageUrl, name: datas[index - 4].name);
+      imageUrl: datas[index - 4].imageUrl,
+      name: datas[index - 4].name,
+      groupTitle: datas[index - 4].indexLetter,
+    );
   }
 
   @override
@@ -52,9 +55,12 @@ class _FriendPageState extends State<FriendPage> {
           )
         ],
       ),
-      body: ListView.builder(
-        itemCount: datas.length + _headerData.length,
-        itemBuilder: _itemForRow,
+      body: Container(
+        color: kWeChatThemeColor,
+        child: ListView.builder(
+          itemCount: datas.length + _headerData.length,
+          itemBuilder: _itemForRow,
+        ),
       ),
     );
   }
@@ -84,11 +90,23 @@ class _FriendCell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (groupTitle != null)
+          Container(
+            height: 30,
+            color: Color.fromRGBO(1, 1, 1, 0.0),
+            padding: EdgeInsets.only(left: 10),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              groupTitle!,
+              style: TextStyle(fontSize: 12, color: Colors.grey),
+            ),
+          ),
+        Container(
+          color: Colors.white,
+          child: Row(
             children: [
               Container(
                 margin: EdgeInsets.all(10),
@@ -109,12 +127,20 @@ class _FriendCell extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            height: 0.5,
-            color: kWeChatThemeColor,
-          )
-        ],
-      ),
+        ),
+        Container(
+          height: 0.5,
+          color: kWeChatThemeColor,
+          child: Row(
+            children: [
+              Container(
+                width: 50,
+                color: Colors.white,
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 }
